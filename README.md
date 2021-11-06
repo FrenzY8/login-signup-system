@@ -8,6 +8,10 @@
 <img src="./images (11).jpeg"/>
 <a align="center">
 
+# Note
+- so basically this file will be sending a signup system, then
+- the data (username, password) will be saved in ```data.json```
+
 # Run the Program
 - ```node main.js```
 - ```yarn build``` X
