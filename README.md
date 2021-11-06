@@ -12,6 +12,26 @@
 - so basically this file will be sending a signup system, then
 - the data (username, password) will be saved in ```data.json```
 
+# Editing the Files
+edit the files on ```main.js``` at line ```37```
+```js
+rl.question("enter the username : ", loguser => {
+              if(loguser == userdia) {
+              rl.question("enter the password : ", passlog => {
+              if(passlog == passdia) {
+              console.log("SUCCES LOGIN")
+              // YOUR CODE HERE!!!........ ANTIDDOS, DDOS TOOLS, ETC DAN LAIN LAIN.!!
+              
+              } else {
+              console.log("pass wrong.")
+              }
+              })
+              } else {
+              console.log("user wrong")
+              }
+              })
+```
+
 # Run the Program
 - ```node main.js```
 - ```yarn build``` X
