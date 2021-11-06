@@ -5,7 +5,8 @@ var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 })
-rl.question("Enter : ", enterewoi => {
+console.log("Write 'signup' for Countinue")
+rl.question("Answer : ", enterewoi => {
   if(enterewoi == "signup") {
   console.log("SIGN UP! (CREATE ACCOUNT)")
     rl.question("enter your username : ", userdia => {
