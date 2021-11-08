@@ -13,23 +13,26 @@
 - the data (username, password) will be saved in ```data.json```
 
 # Editing the Files
-edit the files on ```main.js``` at line ```37```
+edit the files on ```main.js``` at line ```47```
 ```js
-rl.question("enter the username : ", loguser => {
-              if(loguser == userdia) {
+            if(userlog == users) {
               rl.question("enter the password : ", passlog => {
-              if(passlog == passdia) {
-              console.log("SUCCES LOGIN")
-              // YOUR CODE HERE!!!........ ANTIDDOS, DDOS TOOLS, ETC DAN LAIN LAIN.!!
-              
-              } else {
-              console.log("pass wrong.")
-              }
+                if(passlog == "") {
+                  console.log("failed log.")
+                } else {
+                  if(passlog == passwords) {
+                    console.log("SUCCES LOGIN")
+                    console.log("Login System by FrenzySG (FrenzY8)")
+                    // YOUR CODE HERE, ANTI DDOS, DDOS TOOLS, ETC.
+                    
+                  } else {
+                    console.log("wrong pass.")
+                  }
+                }
               })
-              } else {
-              console.log("user wrong")
-              }
-              })
+            } else {
+              console.log("user wrong.")
+            }
 ```
 
 # Run the Program
