@@ -29,6 +29,32 @@ rl.question("Select your method : ", methodDia => {
             }
           })
         }
+      }) // AUTO LOGIN IF DONE SIGN UP
+const { usernames, passwords } = require('./data.json');
+      console.log("LOGIN PAGE")
+      rl.question("enter your username : ", userlog2 => {
+        if(userlog2 == "") {
+          console.log("need username.")
+        } else {
+          if(userlog2 == usernames) {
+            rl.question("enter your password : ", passlog2 => {
+              if(passlog2 == "") {
+                console.log("need pass")
+              } else {
+                if(passlog2 == passwords) {
+                  console.log("succes login!")
+                  console.log("Lite Login signup by FrenzySG")
+                  // your code here, anti ddos, ddos tools, ETC!
+                  
+                } else {
+                  console.log("wrong pass.. did you forget?")
+                }
+              }
+            })
+          } else {
+            console.log("wrong username.. did you forget?")
+          }
+        }
       })
     } else {
     if(methodDia == "login") {
