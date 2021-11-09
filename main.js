@@ -5,70 +5,72 @@ var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 })
-console.log("You must Sign Up first before use this tools")
-rl.question("Enter your names : ", namadia => {
-  if(namadia == "") {
-    console.log("At last you have a name.")
+console.log("Please write 'signup' to signup, 'login' to login")
+rl.question("Select your method : ", methodDia => {
+  if(methodDia == "") {
+    console.log("Select a method.")
   } else {
-    rl.question("Enter the password for your account : ", password => {
-      if(password == "") {
-        console.log("at last you have a password")
-      } else {
-        console.log(`We will write in database : 
-{
-  "users": "${namadia}",
-  "passwords": "${password}"
-}`)
-rl.question("This is ok? write n to cancel : ", nanyaok => {
-  if(nanyaok == "") {
-    console.log("please answer.")
-  } else {
-    if(nanyaok == "n") {
-      console.log("cancelled")
-    } else {
-      if(nanyaok == "N") {
-        console.log("cancelled")
-      } else {
-        fs.writeFileSync(
-          "db.json",
-          `{
-  "users": "${namadia}",
-  "passwords": "${password}"
-}`
-        );
-        console.log("Account Created")
-        const { users, passwords } = require('./db.json')
-        console.log("Login System!")
-        rl.question("enter your username : ", userlog => {
-          if(userlog == "") {
-            console.log("failed login.")
-          } else {
-            if(userlog == users) {
-              rl.question("enter the password : ", passlog => {
-                if(passlog == "") {
-                  console.log("failed log.")
-                } else {
-                  if(passlog == passwords) {
-                    console.log("SUCCES LOGIN")
-                    console.log("Login System by FrenzySG (FrenzY8)")
-                    savedatabase("All Done!")
-                    // YOUR CODE HERE, ANTI DDOS, DDOS TOOLS, ETC.
-                    
-                  } else {
-                    console.log("wrong pass.")
-                  }
-                }
-              })
+    if(methodDia == "signup") {
+      rl.question("enter your username : ", usersign => {
+        if(usersign == "") {
+          console.log("need username")
+        } else {
+          rl.question("enter the password : ", passSign => {
+            if(passSign == "") {
+              console.log("need pass.")
             } else {
-              console.log("user wrong.")
+              fs.writeFileSync(
+                "data.json",
+                `{
+  "usernames": "${usersign}",
+  "passwords": "${passSign}"
+}`
+              );
             }
-          }
-        })
-      }
-    }
-  }
-})
+          })
+        }
+      })
+    } else {
+    if(methodDia == "login") {
+      //const fs = require("fs")
+const path = "./data.json"
+try {
+  if (fs.existsSync(path)) {
+    const { usernames, passwords } = require('./data.json');
+    rl.question("Enter your username for login : ", userlog => {
+      if(userlog == "") {
+        console.log("failed login")
+      } else {
+        if(userlog == usernames) {
+          console.log("Usernames true.")
+          rl.question("Enter your password : ", passlog => {
+            if(passlog == "") {
+              console.log("cannot login, blank pass.")
+            } else {
+              if(passlog == passwords) {
+                console.log("LOGINNED! Tools succes accesed!")
+                console.log("Via : github.com/FrenzY8")
+                // YOUR CODE HERE
+                //ANTI DDOS, DDOS TOOLS, ETC!!
+              } else {
+                console.log("wrong pass.")
+              }
+            }
+          })
+        } else {
+          console.log("username wrong.")
+        }
       }
     })
+  } else {
+    console.log("Please signup, we did not found your data...")
+  }
+} catch(err) {
+  console.error(err)
+}
+    } else {
+      console.log("Unknown Command, the currently commands are 'signup' , 'login'")
+    }
+    }
   }
 })
