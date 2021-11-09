@@ -13,26 +13,18 @@
 - the data (username, password) will be saved in ```data.json```
 
 # Editing the Files
-edit the files on ```main.js``` at line ```47```
+edit the files on ```main.js``` at line ```53```
 ```js
-            if(userlog == users) {
-              rl.question("enter the password : ", passlog => {
-                if(passlog == "") {
-                  console.log("failed log.")
-                } else {
-                  if(passlog == passwords) {
-                    console.log("SUCCES LOGIN")
-                    console.log("Login System by FrenzySG (FrenzY8)")
-                    // YOUR CODE HERE, ANTI DDOS, DDOS TOOLS, ETC.
-                    
-                  } else {
-                    console.log("wrong pass.")
-                  }
-                }
-              })
-            } else {
-              console.log("user wrong.")
+              if(passlog == passwords) {
+                console.log("LOGINNED! Tools succes accesed!")
+                console.log("Via : github.com/FrenzY8")
+                // YOUR CODE HERE
+                //ANTI DDOS, DDOS TOOLS, ETC!!
+              } else {
+                console.log("wrong pass.")
+              }
             }
+          })
 ```
 
 # Run the Program
@@ -46,9 +38,9 @@ edit the files on ```main.js``` at line ```47```
 - ```yarn install``` X
 
 # To be done List
-- Login System
-- Fix Other Bug
-- Fix Read File missing Acces
+- Login System (COMPLETE)
+- Fix Other Bug (COMPLETE)
+- Fix Read File missing Acces (COMPLETE)
 
 # Support me
 - [Get me on Instagram](https://instagram.com/frenzy.666)
