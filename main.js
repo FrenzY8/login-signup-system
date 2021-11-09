@@ -1,6 +1,6 @@
 const readline = require('readline');
 const fs = require('fs');
-const eter = "0";
+const savedatabase = console.log;
 var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -14,7 +14,7 @@ rl.question("Enter your names : ", namadia => {
       if(password == "") {
         console.log("at last you have a password")
       } else {
-        console.log(`We will write : 
+        console.log(`We will write in database : 
 {
   "users": "${namadia}",
   "passwords": "${password}"
@@ -51,6 +51,7 @@ rl.question("This is ok? write n to cancel : ", nanyaok => {
                   if(passlog == passwords) {
                     console.log("SUCCES LOGIN")
                     console.log("Login System by FrenzySG (FrenzY8)")
+                    savedatabase("All Done!")
                     // YOUR CODE HERE, ANTI DDOS, DDOS TOOLS, ETC.
                     
                   } else {
