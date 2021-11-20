@@ -11,6 +11,11 @@ rl.question("Select your method : ", methodDia => {
     console.log("Select a method.")
   } else {
     if(methodDia == "signup") {
+    fs.writeFileSync(
+    "data.json",
+    `{
+       "nothing": "database isnt created."
+    }`);
       rl.question("enter your username : ", usersign => {
         if(usersign == "") {
           console.log("need username")
@@ -19,27 +24,29 @@ rl.question("Select your method : ", methodDia => {
             if(passSign == "") {
               console.log("need pass.")
             } else {
-fs.writeFileSync(
-                "data.json",
+            fs.writeFileSync(
+                "config.json",
                 `{
   "usernames": "${usersign}",
   "passwords": "${passSign}"
 }`
               );
               // auto login (BETA)
-              const { usernames, passwords } = require('./data.json');
+              const { usernames, passwords } = require('./config.json');
+              let userdb = usernames;
+              let passdb = passwords;
               console.log("AUTO-LOGIN PAGES!")
               console.log("account created!")
       rl.question("enter your username : ", userlog2 => {
         if(userlog2 == "") {
           console.log("need username.")
         } else {
-          if(userlog2 == usernames) {
+          if(userlog2 == userdb) {
             rl.question("enter your password : ", passlog2 => {
               if(passlog2 == "") {
                 console.log("need pass")
               } else {
-                if(passlog2 == passwords) {
+                if(passlog2 == passdb) {
                   console.log("succes login!")
                   console.log("Lite Login signup by FrenzySG")
                   // your code here, anti ddos, ddos tools, ETC!
@@ -54,6 +61,13 @@ fs.writeFileSync(
           }
         }
       })
+      fs.writeFileSync(
+                "data.json",
+                `{
+  "usernames": "${usersign}",
+  "passwords": "${passSign}"
+}`
+              );
             }
           })
         }
@@ -86,7 +100,7 @@ const { usernames, passwords } = require('./data.json');
     } else {
     if(methodDia == "login") {
       //const fs = require("fs")
-const path = "./data.json"
+const path = "./config.json"
 try {
   if (fs.existsSync(path)) {
     const { usernames, passwords } = require('./data.json');
