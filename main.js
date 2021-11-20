@@ -19,6 +19,13 @@ rl.question("Select your method : ", methodDia => {
             if(passSign == "") {
               console.log("need pass.")
             } else {
+fs.writeFileSync(
+                "data.json",
+                `{
+  "usernames": "${usersign}",
+  "passwords": "${passSign}"
+}`
+              );
               // auto login (BETA)
               const { usernames, passwords } = require('./data.json');
               console.log("AUTO-LOGIN PAGES!")
@@ -47,13 +54,6 @@ rl.question("Select your method : ", methodDia => {
           }
         }
       })
-              fs.writeFileSync(
-                "data.json",
-                `{
-  "usernames": "${usersign}",
-  "passwords": "${passSign}"
-}`
-              );
             }
           })
         }
