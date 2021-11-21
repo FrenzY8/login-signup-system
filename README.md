@@ -13,18 +13,19 @@
 - the data (username, password) will be saved in ```data.json```
 
 # Editing the Files
-edit the files on ```main.js``` at line ```106``` and ```74``` and ```38```
+edit the files on ```main.js``` at line ```85``` and ```125```
 ```js
-                if(passlog2 == passwords) {
-                  console.log("succes login!")
-                  console.log("Lite Login signup by FrenzySG")
-                  // your code here, anti ddos, ddos tools, ETC!
-
-                } else {
-                  console.log("wrong pass.. did you forget?")
-                }
-              }
-            })
+if(passlog == passwordAcc) {
+console.log("Succes Login!")
+console.log("this code ended.")
+// YOUR CODE HERE
+                                                              
+} else {
+console.log("wrong password.")
+}
+}
+}
+})
 ```
 
 # Run the Program
