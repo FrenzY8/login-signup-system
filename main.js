@@ -43,10 +43,14 @@ fs.writeFileSync(
     "securityCodes": "${SecurityEncrypted}"
 }`)
 console.clear();
+// console.log(str);
                                     console.log("Account Created!")
                                     console.log("LOGIN-PAGES!")
                                     console.log("[AUTO-LOGIN]")
                                     const { name, passwordAcc, securityCodes } = require('./db.json');
+                                    const passwordDec = passwordAcc;
+const passBuff = Buffer.from(passwordDec, 'base64');
+const resultPass = passBuff.toString('utf-8');
                                     rl.question("Enter Your Name : ", NameLog => {
                                         if(NameLog == "") {
                                             console.log("to login, you need a name.")
@@ -69,7 +73,7 @@ console.clear();
 const base64 = passwordAcc;
 const buff = Buffer.from(base64, 'base64');
 const str = buff.toString('utf-8');
-console.log(str);
+// console.log(str);
                                                                         console.log("Password Showen!")
                                                                         console.log(`Your Password : ${str}`)
                                                                         console.log("dont forget it.")
@@ -79,7 +83,7 @@ console.log(str);
                                                                 }
                                                             })
                                                         } else {
-                                                            if(passlog == passwordAcc) {
+                                                            if(passlog == resultPass) {
                                                                 console.log("Succes Login!")
                                                                 console.log("this code ended.")
                                                                 // YOUR CODE HERE
@@ -148,3 +152,4 @@ try {
 })
 
 // lol
+// Coded by FreenzySG (Credits/Mention to use)
