@@ -104,6 +104,7 @@ try {
   if (fs.existsSync(logpath)) {
       console.log("Welcome back!")
       const { name, passwordAcc, securityCodes } = require('./db.json');
+      const passDecLogin = cryptr.decrypt(passwordAcc);
     rl.question("Enter Your Name : ", userlog => {
         if(userlog == "") {
             console.log("Hmmm.. thats not a username.")
@@ -115,7 +116,7 @@ try {
                     if(passlog == "") {
                         console.log("need pass :0")
                     } else {
-                        if(passlog == passwordAcc) {
+                        if(passlog == passDecLogin) {
                             console.log("Succes Login!")
                             console.log("this code ended.")
                             // YOUR CODE HERE !!
@@ -156,9 +157,10 @@ try {
                                 fs.writeFileSync(
                                     'db.json',
                                     `{
-                                        "deleted": "${tanggal}''
+                                        "deleted": "${tanggal}"
                                     }`
                                 );
+                                console.log("account deleted.")
                             } else {
                                 console.log("Cancelled-Delete_Accounts")
                                 fs.writeFileSync(
