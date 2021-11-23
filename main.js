@@ -1,12 +1,14 @@
 // USED FOR TOOLS
 const readline = require('readline');
 const fs = require('fs');
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('myTotalySecretKey');
 var rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
 // login / signup version 2
-console.log("Hi, write 'signup' to signup, 'login' to login");
+console.log("Hi, write 'signup' to signup, 'login' to login, 'delete' to delete account");
 rl.question("Which one methode you want use : ", Methode => {
     if(Methode == "") {
         console.log("select signup or login pls")
@@ -25,32 +27,25 @@ rl.question("Which one methode you want use : ", Methode => {
                                 if(securityCode == "") {
                                     console.log("you need security code")
                                 } else {
-// security will be encrypted!
-const securityEnc = securityCode;
-const buffSec = Buffer.from(securityEnc, 'utf-8');
-const SecurityEncrypted = buffSec.toString('base64');
-console.log(SecurityEncrypted);
-// PASSWORD WILL BE ENCRYPTED!
-const str = PassSign;
-const buff = Buffer.from(str, 'utf-8');
-const base64 = buff.toString('base64');
-console.log(base64);
-fs.writeFileSync(
-"db.json",
+                                // security will be encrypted!
+                                const securityEncrypt = cryptr.encrypt(securityCode);
+                                const passEncrypt = cryptr.encrypt(PassSign);
+// thanks to my friend make this encrypted xd
+// next we will update a log out system                                
+                                fs.writeFileSync(
+                                "db.json",
 `{
     "name": "${namesign}",
-    "passwordAcc": "${base64}",
-    "securityCodes": "${SecurityEncrypted}"
+    "passwordAcc": "${passEncrypt}",
+    "securityCodes": "${securityEncrypt}"
 }`)
 console.clear();
-// console.log(str);
                                     console.log("Account Created!")
                                     console.log("LOGIN-PAGES!")
                                     console.log("[AUTO-LOGIN]")
                                     const { name, passwordAcc, securityCodes } = require('./db.json');
-                                    const passwordDec = passwordAcc;
-const passBuff = Buffer.from(passwordDec, 'base64');
-const resultPass = passBuff.toString('utf-8');
+                                    const passDecLogin = cryptr.decrypt(passwordAcc);
+                                    const securityLupaPass = cryptr.decrypt(securityCodes);
                                     rl.question("Enter Your Name : ", NameLog => {
                                         if(NameLog == "") {
                                             console.log("to login, you need a name.")
@@ -69,13 +64,10 @@ const resultPass = passBuff.toString('utf-8');
                                                                 if(forgetsecurity == "") {
                                                                     console.log("sorry wrong security code.")
                                                                 } else {
-                                                                    if(forgetsecurity == securityCodes) {
-const base64 = passwordAcc;
-const buff = Buffer.from(base64, 'base64');
-const str = buff.toString('utf-8');
-// console.log(str);
+                                                                    if(forgetsecurity == securityLupaPass) {
+                                                                        const LupaPassword = cryptr.decrypt(passwordAcc);
                                                                         console.log("Password Showen!")
-                                                                        console.log(`Your Password : ${str}`)
+                                                                        console.log(`Your Password : ${LupaPassword}`)
                                                                         console.log("dont forget it.")
                                                                     } else {
                                                                         console.log("wrong security code")
@@ -83,7 +75,7 @@ const str = buff.toString('utf-8');
                                                                 }
                                                             })
                                                         } else {
-                                                            if(passlog == resultPass) {
+                                                            if(passlog == passDecLogin) {
                                                                 console.log("Succes Login!")
                                                                 console.log("this code ended.")
                                                                 // YOUR CODE HERE
@@ -145,7 +137,40 @@ try {
   console.error(err)
 }
             } else {
-                console.log("Unknown Commands :(")
+                // console.log("Unknown Commands :(")
+                if(Methode == "delete") {
+                    console.log("You will lost your account are you sure?")
+                    console.log("Write Y to countinue, any key to cancel.")
+                    const tanggal = new Date();
+                    rl.question("Sure ? : ", tanyaDulu => {
+                        if(tanyaDulu == "Y") {
+                            fs.writeFileSync(
+                                'db.json',
+                                `{
+                                    "deleted": "${tanggal}''
+                                }`
+                            );
+                        } else {
+                            // console.log("program-cancelled")
+                            if(tanyaDulu == "y") {
+                                fs.writeFileSync(
+                                    'db.json',
+                                    `{
+                                        "deleted": "${tanggal}''
+                                    }`
+                                );
+                            } else {
+                                console.log("Cancelled-Delete_Accounts")
+                                fs.writeFileSync(
+                                    `logsaccount.txt`,
+                                    `${tanggal} Cancelled delete account.`
+                                )
+                            }
+                        }
+                    })
+                } else {
+                    console.log("Unknown Commands!")
+                }
             }
         }
     }
