@@ -2,12 +2,28 @@
 const readline = require('readline');
 const fs = require('fs');
 const Cryptr = require('cryptr');
-// encrypt - decrypt by CRYPTR on npm !!
 const cryptr = new Cryptr('myTotalySecretKey');
+
+// bahan penting
 var rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
+
+// Random OTP Generator
+function frenzyOTP(len) {
+    var str = "";                          
+    for (var i = 0; i < len; i++) {   
+             // Loop `len` times
+      var rand = Math.floor(Math.random() * 62);
+      var charCode = rand += rand > 9 ? (rand < 36 ? 55 : 61) : 48; 
+      str += String.fromCharCode(charCode);      
+    }
+  // then => returned
+    return str; // (str) the function
+  }
+  // next => 
+let OTPNya = frenzyOTP(6);
 // login / signup version 2
 console.log("Hi, write 'signup' to signup, 'login' to login, 'delete' to delete account");
 rl.question("Which one methode you want use : ", Methode => {
@@ -15,6 +31,15 @@ rl.question("Which one methode you want use : ", Methode => {
         console.log("select signup or login pls")
     } else {
         if(Methode == "signup") {
+            console.log(`----- ${OTPNya} -----`)
+            console.log("[+] Please verify thats you're humans by write the OTP Code!")
+            rl.question(">>> ", jawabOTP => {
+                if(jawabOTP == "") {
+                    console.log("You cant sending blank messages.")
+                } else {
+                    if(jawabOTP == OTPNya) {
+                        console.clear();
+                        console.log("Making Accounts Pages")
             rl.question("Enter your name : ", namesign => {
                 if(namesign == "") {
                     console.log("Must have names.")
@@ -98,6 +123,9 @@ console.clear();
                     })
                 }
             })
+        }
+    }
+})
         } else {
             if(Methode == "login") {
 const logpath = "./db.json"
