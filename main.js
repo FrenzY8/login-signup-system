@@ -2,6 +2,7 @@
 const readline = require('readline');
 const fs = require('fs');
 const Cryptr = require('cryptr');
+// encrypt - decrypt by CRYPTR on npm !!
 const cryptr = new Cryptr('myTotalySecretKey');
 var rl = readline.createInterface({
     input: process.stdin,
