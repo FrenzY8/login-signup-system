@@ -13,7 +13,7 @@
 - the data (username, password) will be saved in ```data.json```
 
 # Editing the Files
-edit the files on ```main.js``` at line ```85``` and ```125```
+edit the files on ```main.js``` at line ```105``` and ```159``` and ```205``` and  ```296```
 ```js
 if(passlog == passwordAcc) {
 console.log("Succes Login!")
