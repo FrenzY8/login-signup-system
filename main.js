@@ -1,6 +1,7 @@
 // USED FOR TOOLS
 const readline = require('readline');
 const fs = require('fs');
+// decryptor and encryptor (0)
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('myTotalySecretKey');
 
@@ -24,8 +25,195 @@ function frenzyOTP(len) {
   }
   // next => 
 let OTPNya = frenzyOTP(6);
-// login / signup version 2
-console.log("Hi, write 'signup' to signup, 'login' to login, 'delete' to delete account");
+// const fs = require('fs');
+
+try {
+    if(fs.existsSync('db.json')) {
+        const { name, passwordAcc, securityCodes } = require('./db.json')
+        console.log(`Welcome back ' ${name} ' to the tools!`)
+        console.log(`Write 'logout to logout, i hope you remeber your account pass and name :)`)
+        rl.question("Enter Your Usernames : ", usernameLogBeta => {
+            if(usernameLogBeta == "") {
+                console.log("i dont know blank message")
+            } else {
+                if(usernameLogBeta == "logout") {
+                    console.log("Hi! who are you?")
+                    console.log("Lets write 'signup' to signup 'login' to login")
+                    rl.question("Where the methode thats do you want to use? : ", MethodeOne => {
+                        if(MethodeOne == "") {
+                            console.log("dont let it blank :(")
+                        } else {
+                            if(MethodeOne == "signup") {
+                                console.log("Weww.. we are creating a new accounts again.")
+                                rl.question("Ok so, what is your name ? : ", namaSign1 => {
+                                    if(namaSign1 == "") {
+                                        console.log("well thats a bad name for your account.")
+                                    } else {
+                                        rl.question("Ok now, your pass account will be : ", passAcc => {
+                                            if(passAcc == "") {
+                                                console.log("well thats a bad password.")
+                                            } else {
+                                                // const pass1Enc = cryptr.encrypt(passAcc)
+                                                console.log("Nice, now what is your Security Code?")
+                                                console.log("This will be used if you forget your password.")
+                                                rl.question("Any number or smth ? : ", SecurityCok => {
+                                                    if(SecurityCok == "") {
+                                                        console.log("well thats will bad if you forget your password.")
+                                                    } else {
+                                                        const pass1 = cryptr.encrypt(passAcc);
+                                                        const security1 = cryptr.encrypt(SecurityCok)
+                                                        fs.writeFileSync(
+                                                            `db.json`,
+                                                            `{
+                                                                "name": "${namaSign1}",
+                                                                "passwordAcc": "${pass1}",
+                                                                "securityCodes": "${security1}"
+                                                            }`
+                                                        );
+                                                        console.clear();
+                                                        console.log("ACCOUNT CREATED!")
+                                                        console.log("[AUTO-LOGIN] Auto login pages")
+                                                        const { name, passwordAcc, securityCodes } = require('./db.json');
+                                                        const decPass = cryptr.decrypt(passAcc)
+                                                        const decSecurity = cryptr.decrypt(securityCodes)
+                                                        rl.question("Enter Your Account Username : ", userlog2 => {
+                                                            if(userlog2 == "") {
+                                                                console.log("well you need your username, dont let it blank.")
+                                                            } else {
+                                                                if(userlog2 == name) {
+                                                                    console.log("[V] Correct username")
+                                                                    console.log("If you forget your password, type 'forget'")
+                                                                    rl.question("Now your password : ", passLog2 => {
+                                                                        if(passLog2 == "") {
+                                                                            console.log("need a password.")
+                                                                        } else {
+                                                                            if(passLog2 == "forget") {
+                                                                                console.log("Tsk tsk tsk forget your password?")
+                                                                                rl.question("So enter your security code here to recover your account : ", forgetPass => {
+                                                                                    if(forgetPass == "") {
+                                                                                        console.log("You need a security code, if you forget it, thats will be bad.")
+                                                                                    } else {
+                                                                                        if(forgetPass == decSecurity) {
+                                                                                            console.log("Nice, so this your password")
+                                                                                            console.log(`--- ${decPass} ---`)
+                                                                                            console.log("dont forget it again.")
+                                                                                        }
+                                                                                    }
+                                                                                })
+                                                                            } else {
+                                                                                if(passLog2 == decPass) {
+                                                                                    console.log("Horray succes loginned!")
+                                                                                    console.log("This code ended.")
+                                                                                } else {
+                                                                                    console.log("wrong pass, did you forget it?")
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    })
+                                                                } else {
+                                                                    console.log("wrong username, did you forget it?")
+                                                                }
+                                                            }
+                                                        })
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+                            } else {
+                                if(MethodeOne == "login") {
+// const fs = require('fs');
+try {
+    if(fs.existsSync('./db.json')) {
+        const { name, passwordAcc, securityCodes } = require('./db.json')
+        const decryptPass = cryptr.decrypt(passwordAcc)
+        const decryptSec = cryptr.decrypt(securityCodes)
+        console.log("Hell yeah! welcome back bro!")
+        rl.question("Enter yout username : ", userLog7 => {
+            if(userLog7 == "") {
+                console.log("lol bro we cant detect your account")
+            } else {
+                if(userLog7 == name) {
+                    console.log(`Great ${name} you remember your names!`)
+                    console.log("write 'forget' if you forget it!")
+                    rl.question("Now your password : ", passwordLog7 => {
+                        if(passwordLog7 == "") {
+                            console.log("Umm, thats not a password.")
+                        } else {
+                            if(passwordLog7 == "forget") {
+                                console.log("thats bad bro you're forget your password")
+                                rl.question("enter your security code to recover : ", secLupa => {
+                                    if(secLupa == "") {
+                                        console.log("donnt try to hacking bro ;0")
+                                    } else {
+                                        if(secLupa == decryptSec) {
+                                            console.log("nice so here your pass.")
+                                            console.log(`this your pass : ${decryptPass}`)
+                                        }
+                                    }
+                                })
+                            } else {
+                                if(passwordLog7 == decryptPass) {
+                                    console.log("succes loginned!")
+                                    console.log("Horray this code ended!")
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+        })
+    } else {
+        // protection, abuse user
+        console.log('Bro, you have not account. so please register, or maybe you delete the data?');
+    }
+} catch (err) {
+    console.error(err);
+}
+                                }
+                            }
+                        }
+                    })
+                } else {
+                    if(usernameLogBeta == name) {
+                        const { name, passwordAcc, securityCodes } = require('./db.json')
+                        const decPass = cryptr.decrypt(passwordAcc)
+                        const decSecurity = cryptr.decrypt(securityCodes)
+                        console.log("Nice you remember your name.")
+                        console.log("write 'forget' if you forget your password.")
+                        rl.question("Now your password : ", passlogAnjae => {
+                            if(passlogAnjae == "") {
+                                console.log("need pass.")
+                            } else {
+                                if(passlogAnjae == "forget") {
+                                    console.log("Tsk tsk tsk forget your password?")
+                                    rl.question("So enter your security code here to recover your account : ", forgetPass => {
+                                    if(forgetPass == "") {
+                                    console.log("You need a security code, if you forget it, thats will be bad.")
+                                    } else {
+                                    if(forgetPass == decSecurity) {
+                                    console.log("Nice, so this your password")
+                                    console.log(`--- ${decPass} ---`)
+                                    console.log("dont forget it again.")
+                                    }
+                                    }
+                                    })
+                                } else {
+                                    if(passlogAnjae == decPass) {
+                                        console.log("Succes loginned. yeay this code ended.")
+                                        // Your code HERE
+                                        // anti ddos, ddos tools, or etc
+                                    }
+                                }
+                            }
+                        })
+                    }
+                }
+            }
+        })
+    } else {
+        console.log("Hi, write 'signup' to signup, 'login' to login, 'delete' to delete account");
 rl.question("Which one methode you want use : ", Methode => {
     if(Methode == "") {
         console.log("select signup or login pls")
@@ -123,6 +311,8 @@ console.clear();
                     })
                 }
             })
+        } else {
+            console.log("OTP Wrong did you not a humans?")
         }
     }
 })
@@ -177,7 +367,7 @@ try {
                             fs.writeFileSync(
                                 'db.json',
                                 `{
-                                    "deleted": "${tanggal}''
+                                    "deleted": "${tanggal}"
                                 }`
                             );
                         } else {
@@ -206,6 +396,11 @@ try {
         }
     }
 })
+    }
+} catch (err) {
+    console.error(err);
+}
+// END, ACCOUNT DETECTOR SYSTEM
 
 // lol
 // Coded by FreenzySG (Credits/Mention to use)
