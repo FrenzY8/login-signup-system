@@ -8,6 +8,11 @@
 <img src="./images (11).jpeg"/>
 <a align="center">
 
+# Features
+- encrypted database
+- nice system
+- hard to leak
+
 # Note
 - so basically this file will be sending a signup system, then
 - the data (username, password) will be saved in ```data.json```
